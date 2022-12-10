@@ -11,10 +11,10 @@ ARG APP_NAME
 WORKDIR /app
 
 ADD pom.xml .
-RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline
+#RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline
 
 ADD . .
-RUN --mount=type=cache,target=/root/.m2 mvn package -Dmaven.test.skip=true --offline
+RUN --mount=type=cache,target=/root/.m2 mvn package -Dmaven.test.skip=true
 #RUN mvn package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:17.0.5_8-jre-ubi9-minimal
