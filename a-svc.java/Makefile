@@ -1,3 +1,8 @@
+.PHONY: tools
+tools:
+	brew install sdkman
+	sdk install java 17.0.5-amzn && sdk use java 17.0.5-amzn
+
 .PHONY: build
 build:
 	mvn package -Dmaven.test.skip=true
