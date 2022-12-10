@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: java
-        image: a-svc:1.0.0
+        image: a-svc:dont_push
+        imagePullPolicy: IfNotPresent
         command: ["java", "-jar",
                   "/app.jar"]
         ports:
