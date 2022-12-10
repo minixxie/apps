@@ -22,4 +22,4 @@ FROM eclipse-temurin:17.0.5_8-jre-ubi9-minimal
 ARG APP_NAME
 ENV APP_NAME=${APP_NAME}
 
-#COPY --from=jdk 
+COPY --from=jdk /app/target/demo-latest.jar /app.jar
