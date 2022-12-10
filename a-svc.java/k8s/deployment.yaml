@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: a-svc
+  namespace: apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appID: a-svc
+  template:
+    metadata:
+      labels:
+        appID: a-svc
+    spec:
+      containers:
+      - name: java
+        image: a-svc:1.0.0
+        command: ["java", "-jar",
+                  "/app.jar"]
+        ports:
+        - containerPort: 80
