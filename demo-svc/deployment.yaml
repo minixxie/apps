@@ -44,8 +44,8 @@ spec:
 
         # same as JVM option -Dotel.exporter.otlp.endpoint=http://signoz-otel-collector.signoz.svc:4317
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
-          value: "http://signoz-otel-collector.signoz.svc:4317"  # sending gRPC to collector in signoz chart
-          #value: "http://opentelemetry-collector.otel.svc:4317"  # sending gRPC to collector in opentelemetry-collector chart
+          #value: "http://signoz-otel-collector.signoz.svc:4317"  # sending gRPC to collector in signoz chart
+          value: "http://opentelemetry-collector.otel.svc:4317"  # sending gRPC to collector in opentelemetry-collector chart
         # same as JVM option -Dotel.resource.attributes=service.name=demo-svc
         - name: OTEL_RESOURCE_ATTRIBUTES
           value: "service.name=demo-svc"
