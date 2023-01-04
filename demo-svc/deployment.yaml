@@ -25,13 +25,9 @@ spec:
         image: demo-svc:dont_push
         imagePullPolicy: IfNotPresent
         # --add-opens java.base/java.lang=ALL-UNNAMED - https://stackoverflow.com/questions/68168691/java-lang-reflect-inaccessibleobjectexception-unable-to-make-protected-final-ja
-        # -Dote.exporter.otlp.endpoint=http://signoz-otel-collector.signoz.svc:4317 - signoz installed in signoz namespace
-        # -Dote.exporter.otlp.endpoint=http://opentelemetry-collector.otel.svc:4317 - opentelemetry-collector installed in otel namespace
         command: ["java",
                   "--add-opens", "java.base/java.lang=ALL-UNNAMED",
                   "-javaagent:/opentelemetry-javaagent.jar",
-                  "-Dotel.resource.attributes=service.name=demo-svc",
-                  "-Dotel.exporter.otlp.endpoint=http://opentelemetry-collector.otel.svc:4317",
                   "-jar", "/app.jar"]
         ports:
         - containerPort: 8080
@@ -41,3 +37,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.hostIP
+
+        # [OTEL variables]
+        # 1. https://opentelemetry.io/docs/concepts/sdk-configuration/otlp-exporter-configuration/
+        # 2. https://github.com/open-telemetry/opentelemetry-java/blob/main/sdk-extensions/autoconfigure/README.md
+
+        # same as JVM option -Dotel.exporter.otlp.endpoint=http://signoz-otel-collector.signoz.svc:4317
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://signoz-otel-collector.signoz.svc:4317"  # sending gRPC to collector in signoz chart
+          #value: "http://opentelemetry-collector.otel.svc:4317"  # sending gRPC to collector in opentelemetry-collector chart
+        # same as JVM option -Dotel.resource.attributes=service.name=demo-svc
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: "service.name=demo-svc"
